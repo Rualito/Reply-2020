@@ -1,135 +1,61 @@
-# Makefile is in main folder
-CC:= g++
-NVCC:= /usr/local/cuda-10.1/bin/nvcc
+# F Barao (Dep Fis / IST)
+# 2018-19
+# FÃ­sica Computacional
+#
+# Makefile explained with detailed comments
+# ---------------------------------------------
 
-VPATH = src/:serie_problemas/:lib/
+CC := g++
+CCFLAGS := -std=c++11
+INC := -I src
 
-CFLAGS:= -O3 -m64 -std=c++11 -g
+ROOTINC = $(shell root-config --cflags)
+ROOTLIB = $(shell root-config --libs)
 
-CUDA_PATH ?= /usr/local/cuda-10.1
-CUDA_PATH := -I$(CUDA_PATH)
-CUDALIB   := -I/usr/local/cuda-10.1/samples/common/inc
-CUDAFLAGS:= -gencode arch=compute_61,code=sm_61 -ccbin $(CC) -m64
+# --- here I place all the directories, where source code can be separated by :
 
-SFMLLIB := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio 
+VPATH = src/:Series_Problemas/:
 
-FREEGLUTLIB := -lGL -lGLU -lglut
+# --- list all my sources inside src/ directory and make list of objects
+#     notes:
+#     1. src/ dir must contain all my code that will be needed by my programs
+#     2. identify every file by a name that will tell you the contents
 
-ROOTINC:= $(shell root-config --cflags)
-
-ROOTLIB:= $(shell root-config --libs)
-
-MAIN:= $(notdir $(wildcard serie_problemas/*.cpp))
-
-SRC:= $(notdir $(wildcard src/*.cpp)) $(notdir $(wildcard src/*.C)) $(notdir $(wildcard src/*.cu))
-
-LIB:= $(notdir $(wildcard lib/*.cpp)) $(notdir $(wildcard lib/*.C)) $(notdir $(wildcard lib/*.cu))
-
-SRC_cpp :=$(filter %.cpp, $(SRC))
-SRC_C   :=$(filter %.C, $(SRC))
-SRC_cu  :=$(filter %.cu, $(SRC))
-
-LIB_cpp := $(filter %.cpp, $(LIB))
-LIB_C   :=$(filter %.C, $(LIB))
-LIB_cu  := $(filter %.cu, $(LIB))
-
-SRC_OBJ := $(addprefix bin/, $(SRC_cpp:.cpp=.o))
-SRC_OBJ += $(addprefix bin/, $(SRC_C:.C=.o))
-
-SRC_OBJ += $(addprefix bin/, $(SRC_cu:.cu=.o))
+SRC = $(notdir $(wildcard src/*.cpp))
+OBJ = $(addprefix bin/, $(SRC:.cpp=.o))
+HHH = $(wildcard src/*.h)
 
 
-LIB_OBJ := $(addprefix bin/, $(LIB_cpp:.cpp=.o))
-LIB_OBJ += $(addprefix bin/, $(LIB_C:.C=.o)) 
+# --- now I want to make a target to make all objects
+#     just do: make obj
 
-LIB_OBJ_CU := $(addprefix bin/, $(LIB_cu:.cu=.o)) 
+obj: $(OBJ)
 
-OBJS:= $(SRC_OBJ) $(LIB_OBJ)
+# --- other targets: organizing my code by problems
+#     to produce executable of prob 28: make p28
 
-CUDA_OBJ := $(SRC_OBJ_cu) $(LIB_OBJ_cu)
+p28: bin/pessoa.o bin/programa_28.exe
 
-EXE:= $(addprefix bin/, $(MAIN:.cpp=.x))
+# --- now I need to make the rules to compile and link
 
-INCLUDE := -I src -I lib $(FREEGLUTLIB) $(SFMLLIB)
+bin/%.exe: bin/%.o $(OBJ)
+	@echo "making executable $^... [$@]"
+	$(CC) $(CCFLAGS)  -o $@ $< $(INC) $(OBJ) $(ROOTINC) $(ROOTLIB)
 
-CUDA_COMPILE := 0
-
-all : $(EXE)
-
-lib: $(LIB_OBJ)
-
-src: $(SRC_OBJ)
-
-obj: $(OBJS)
-
-cuobj: $(CUDA_OBJ)
-
-bin/%.x : bin/%.o $(OBJS)
-	@echo "Making executable $< [$@]"
-	@-$(NVCC)  $(CUDAFLAGS) -o $@ $^ $(INCLUDE) -I$(CUDA_PATH) $(CUDA_LIB) 
-	@echo 
-#@echo "Running executable"
-#$@
-
-bin/%.exe : bin/%.o $(OBJS)
-#@echo "Running executable"
-#$@
-
-#necessary for extension .cpp
 bin/%.o : %.cpp
-	@echo "Compiling $< [$@]"
-	@$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDE) $(ROOTINC)
-
-# ndecessary for extension .cu # )
-bin/%.o : %.cu
-	@echo "Compiling $< [$@]"
-	@-$(NVCC)  $(CUDAFLAGS) -c -o $@ $< $(INCLUDE) $(CUDA_PATH) $(CUDA_LIB) $(LIBDEVICE)
-
-#needed for extension .C
-bin/%.o : %.C
-	@echo "Compiling $< [$@]"
-	@$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDE) $(ROOTINC)
-
+	@echo "compiling $<... [$@]"
+	$(CC) $(CCFLAGS) -c -o $@ $< $(INC) $(ROOTINC)
 
 clean:
-	@rm -fv $(LIB_OBJ) $(SRC_OBJ) $(EXE) $(CUDA_OBJ)
+	rm -fv bin/*.o bin/*.exe
 
-clnlib:
-	@rm -fv $(LIB_OBJ)
-
-clnsrc:
-	@rm -fv $(SRC_OBJ)
-
-clnexe:
-	@rm -fv $(EXE)
-
-shwroot:
-	@echo "ROOT INCLUDE"
+test:
+	@echo "Test 1"
 	@echo $(ROOTINC)
-
-shwsrc:
-	@echo "SOURCE .cpp"
+	@echo $(INC)
 	@echo $(SRC)
-	@echo
+	@echo $(OBJ)
 
-shwlib:
-	@echo "LIBRARY .cpp"
-	@echo $(LIB)
-	@echo
-shwcuda:
-	@echo "CUDA .cu"
-	@echo $(SRC_cu) $(LIB_cu)
 
-shwall:
-	@echo "ROOT INCLUDE"
-	@echo $(ROOTINC)
-	@echo 
-
-	@echo "SOURCE .cpp"
-	@echo $(SRC)
-	@echo  
-
-	@echo "LIB .cpp"
-	@echo $(LIB)
-	@echo
-
+#Target : dependencies
+#Action
