@@ -3,9 +3,14 @@
 
 class Replyer{
 public:
-  Replyer();
+  Replyer(bool isM,string C,int B,vector<string> vS);
   ;
-private:
-  ;
+
+  bool isM;
+  string C;
+  int B;
+  vector<string> vS;
+
+
 };
 #endif
