@@ -1,5 +1,6 @@
 #include "Replyer.h"
 
+using namespace std;
 
 Replyer::Replyer(bool isM, string line)
 {
@@ -26,30 +27,41 @@ vector<Replyer> ReadFile(string name)
   string line;
   vector<string> filelines;
   stringstream ss;
-  int m = 0, n = 0;
+  int w = 0, h = 0;
 
   myfile.open(name);
   getline(myfile,line);
 
   ss << line;
-  ss>>m;
-  ss>>n;
-
-  for( int i = 0; i < n && getline(myfile,line);i++)
+  ss>>w;
+  ss>>h;
+  cout << w  << "x" << h << endl;
+  for( int i = 0; i < h && getline(myfile,line);i++)
   {;}
-  int nD;
+  int nD = 0;
   myfile>>nD;
-  for(int i=0; i<nD; i++)
+  for(int i=0; i<=nD; i++)
   {
     getline(myfile,line);
     vRep.push_back(Replyer(false,line));
   }
   myfile>>nD;
-  for(int i=0; i<nD; i++)
+  for(int i=0; i<=nD; i++)
   {
     getline(myfile,line);
     vRep.push_back(Replyer(true,line));
   }
   myfile.close();
   return vRep;
+}
+
+
+void Replyer::Print()
+{
+  if(isM)
+  {
+    // cout << "Manager " << C << B << endl;
+  }else{
+    // cout << "Developer " << C << B << vS << endl;
+  }
 }

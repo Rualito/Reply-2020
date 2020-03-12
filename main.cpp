@@ -6,6 +6,7 @@
 int main(void){
     Replyer testReplyer(false,"opn 7 2 java bpm");
     std::cout<<testReplyer.C<<'\n';
-    vector<Replyer> test = ReadFile("a_solar.txt");
+    vector<Replyer> test = ReadFile("input/a_solar.txt");
+    test[0].Print();
     return 0;
 }

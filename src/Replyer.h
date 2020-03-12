@@ -5,15 +5,19 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <iostream>
+
 using namespace std;
+
 class Replyer{
-public:
-  Replyer(bool isM,string line);
-  bool isM;
-  string C;
-  int B;
-  vector<string> vS;
-  static vector<string> ReadFile(string name);
+  public:
+    Replyer(bool isM,string line);
+    bool isM;
+    string C;
+    int B;
+    vector<string> vS;
+    void Print();
+    static vector<string> ReadFile(string name);
 
 };
 
