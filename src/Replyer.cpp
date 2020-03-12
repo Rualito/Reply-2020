@@ -7,13 +7,16 @@ Replyer::Replyer(bool isM, string line)
   rLine>>C;
   rLine>>B;
   int nS;
-  rLine>>nS;
-  string skill="";
-  for(int i=0; i<nS; i++)
+  if(!isM)
   {
-    rLine>>skill;
-    vS.push_back(skill);
-    skill = "";
+    rLine>>nS;
+    string skill="";
+    for(int i=0; i<nS; i++)
+    {
+      rLine>>skill;
+      vS.push_back(skill);
+      skill = "";
+    }
   }
 }
 
@@ -26,25 +29,35 @@ vector<Replyer> ReadFile(string name)
   string line;
   vector<string> filelines;
   stringstream ss;
-  int m = 0, n = 0;
+  int w = 0, h = 0;
 
   myfile.open(name);
   getline(myfile,line);
 
   ss << line;
-  ss>>m;
-  ss>>n;
-
-  for( int i = 0; i < n && getline(myfile,line);i++)
-  {;}
+  ss>>w;
+  ss>>h;
+  std::cout << "w= "<<w<<"h= "<<h << '\n';
+  for( int i = 0; i < h ;i++)
+  {
+    getline(myfile,line);
+  }
   int nD;
-  myfile>>nD;
+  getline(myfile,line);
+  cout << "linha: "<<line<<endl;
+  ss.str("");
+  ss << line;
+  ss>>nD;
+  cout << "nD = "<<nD << '\n';
   for(int i=0; i<nD; i++)
   {
     getline(myfile,line);
     vRep.push_back(Replyer(false,line));
   }
-  myfile>>nD;
+  getline(myfile,line);
+  ss.str("");
+  ss << line;
+  ss>>nD;
   for(int i=0; i<nD; i++)
   {
     getline(myfile,line);
@@ -52,4 +65,14 @@ vector<Replyer> ReadFile(string name)
   }
   myfile.close();
   return vRep;
+}
+
+double Replyer::BonusPotential(const Replyer& r2)
+{
+
+}
+
+double Replyer::TotalPotential(const Replyer& r2)
+{
+
 }
