@@ -8,13 +8,16 @@ Replyer::Replyer(bool isM, string line)
   rLine>>C;
   rLine>>B;
   int nS;
-  rLine>>nS;
-  string skill="";
-  for(int i=0; i<nS; i++)
+  if(!isM)
   {
-    rLine>>skill;
-    vS.push_back(skill);
-    skill = "";
+    rLine>>nS;
+    string skill="";
+    for(int i=0; i<nS; i++)
+    {
+      rLine>>skill;
+      vS.push_back(skill);
+      skill = "";
+    }
   }
 }
 
@@ -35,6 +38,7 @@ vector<Replyer> ReadFile(string name)
   ss << line;
   ss>>w;
   ss>>h;
+
   cout << w  << "x" << h << endl;
   for( int i = 0; i < h && getline(myfile,line);i++)
   {;}
