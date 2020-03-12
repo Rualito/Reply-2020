@@ -1,10 +1,10 @@
-#ifndef REPLYER
-#define REPLYER
+#ifndef REPLYER__H
+#define REPLYER__H
 
 class Replyer{
 public:
-  Replyer(bool isM,string C,int B,vector<string> vS);
-  ;
+  void Replyer(string line);
+
 
   bool isM;
   string C;
