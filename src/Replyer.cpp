@@ -34,10 +34,10 @@ vector<string> ReadFile(string name)
   ss>>m;
   ss>>n;
 
-  for( int i = 0; i < n && getline(myfile,line));i++)
+  for( int i = 0; i < n && getline(myfile,line);i++)
   {;}
 
-  While()
+  While(getline(myfile,line))
   {
     filelines.push_back(line);
   }
