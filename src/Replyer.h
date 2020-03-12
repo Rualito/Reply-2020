@@ -23,6 +23,7 @@ class Replyer{
     double workerPotential (const Replyer& r2);
 };
 
+vector<vector<int>> MatrixOffice(string name);
 vector<Replyer> ReadFile(string name);
 
 #endif
