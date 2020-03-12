@@ -16,4 +16,7 @@ public:
   static vector<string> ReadFile(string name);
 
 };
+
+vector<Replyer> ReadFile(string name);
+
 #endif

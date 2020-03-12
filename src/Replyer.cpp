@@ -18,8 +18,9 @@ Replyer::Replyer(bool isM, string line)
 }
 
 
-vector<string> Replyer::ReadFile(string name)
+vector<Replyer> ReadFile(string name)
 {
+  vector<Replyer> vRep;
   ifstream myfile;
   // int count = 0;
   string line;
@@ -36,12 +37,19 @@ vector<string> Replyer::ReadFile(string name)
 
   for( int i = 0; i < n && getline(myfile,line);i++)
   {;}
-
-  while(getline(myfile,line))
+  int nD;
+  myfile>>nD;
+  for(int i=0; i<nD; i++)
   {
-    filelines.push_back(line);
+    getline(myfile,line);
+    vRep.push_back(Replyer(false,line));
   }
-
+  myfile>>nD;
+  for(int i=0; i<nD; i++)
+  {
+    getline(myfile,line);
+    vRep.push_back(Replyer(true,line));
+  }
   myfile.close();
-  return filelines;
+  return vRep;
 }
