@@ -1,9 +1,9 @@
-#include "Replyer.cpp"
-#include <sstream>
+#include "Replyer.h"
+
 
 Replyer::Replyer(bool isM, string line)
 {
-  isstream rLine(line);
+  istringstream rLine(line);
   rLine>>C;
   rLine>>B;
   int nS;
@@ -18,7 +18,7 @@ Replyer::Replyer(bool isM, string line)
 }
 
 
-static vector<string> ReadFile::ReadFile(string name)
+vector<string> Replyer::ReadFile(string name)
 {
   ifstream myfile;
   // int count = 0;
