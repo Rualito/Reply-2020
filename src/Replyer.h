@@ -18,9 +18,9 @@ class Replyer{
     vector<string> vS;
     void Print();
     static vector<string> ReadFile(string name);
-
 };
 
+vector<vector<int>> MatrixOffice(string name);
 vector<Replyer> ReadFile(string name);
 
 #endif

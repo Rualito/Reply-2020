@@ -11,5 +11,6 @@ int main(void){
     {
       test[i].Print();
     }
+    vector<vector<int>> wow = MatrixOffice("input/a_solar.txt");
     return 0;
 }
