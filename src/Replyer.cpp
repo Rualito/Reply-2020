@@ -22,6 +22,7 @@ Replyer::Replyer(bool isMx, string line)
 
     }
   }
+  sort(vS.begin(),vS.end());
 
 }
 
@@ -99,5 +100,20 @@ double Replyer::totalPotential(const Replyer& r2)
 
 double Replyer::workerPotential(const Replyer& r2)
 {
+  double potential =0;
+  vector<string> intersection(vS.size()+r2.vS.size());
+  set_intersection(vS.begin(),vS.end(),r2.vS.begin(),r2.vS.end(),intersection.begin());
+  std::cout << "intersection: " << '\n';
+  int nInter = 0;
+  for(int i=0; i<intersection.size(); i++)
+  {
+    cout<<intersection[i] <<"  ";
+    if (intersection[i]!="") {
+      nInter++;
+    }
+
+  }
+  std::cout  << '\n';
+  cout<<nInter<<endl;
   return 0;
 }
