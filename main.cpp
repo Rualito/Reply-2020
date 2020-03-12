@@ -15,13 +15,19 @@ int main(void){
 
     
     int N = vReplyer.size();
+    int managerThreshold = 0;
     
     int **TPij = new int[N][N];
+
     for(int i=0; i<N; ++i){
+	if(vReplyer[i].isM && managerThreshold==0){
+	    managerThreshold = i;
+	}
 	for(int j=0; j<N; ++j){
 	    TPij[i][j] = vReplyer[i].totalPotential(vReplyer[j]);
 	}
     }
+
     
     
     
