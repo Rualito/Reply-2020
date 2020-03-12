@@ -47,6 +47,7 @@ vector<Replyer> ReadFile(string name)
   for(int i=0; i<=nD; i++)
   {
     getline(myfile,line);
+    cout<<line<<endl;
     vRep.push_back(Replyer(false,line));
   }
   myfile>>nD;
@@ -64,8 +65,10 @@ void Replyer::Print()
 {
   if(isM)
   {
-    // cout << "Manager " << C << B << endl;
-  }else{
-    // cout << "Developer " << C << B << vS << endl;
+
+  }
+  else
+  {
+
   }
 }
