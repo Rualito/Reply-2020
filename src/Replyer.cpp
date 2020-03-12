@@ -5,6 +5,7 @@ using namespace std;
 Replyer::Replyer(bool isM, string line)
 {
   istringstream rLine(line);
+  cout << "uma linha " << line << endl;
   rLine>>C;
   rLine>>B;
   int nS;
@@ -17,6 +18,7 @@ Replyer::Replyer(bool isM, string line)
       rLine>>skill;
       vS.push_back(skill);
       skill = "";
+
     }
   }
 }
@@ -44,13 +46,16 @@ vector<Replyer> ReadFile(string name)
   {;}
   int nD = 0;
   myfile>>nD;
-  for(int i=0; i<=nD; i++)
+  getline(myfile,line);
+  for(int i=0; i<nD; i++)
   {
     getline(myfile,line);
     vRep.push_back(Replyer(false,line));
   }
   myfile>>nD;
-  for(int i=0; i<=nD; i++)
+  getline(myfile,line);
+
+  for(int i=0; i<nD; i++)
   {
     getline(myfile,line);
     vRep.push_back(Replyer(true,line));
@@ -64,8 +69,13 @@ void Replyer::Print()
 {
   if(isM)
   {
-    // cout << "Manager " << C << B << endl;
+    cout << "Manager " << C  << " "<< B << endl;
   }else{
-    // cout << "Developer " << C << B << vS << endl;
+    cout << "Developer " << C << " " <<B << " ";
+    for(int i = 0; i < (int)vS.size(); i++)
+    {
+      cout << vS[i] << " ";
+    }
+    cout << endl;
   }
 }
