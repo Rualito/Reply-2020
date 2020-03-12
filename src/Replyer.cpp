@@ -142,17 +142,19 @@ double Replyer::workerPotential(const Replyer& r2)
   double potential =0;
   vector<string> intersection(vS.size()+r2.vS.size());
   set_intersection(vS.begin(),vS.end(),r2.vS.begin(),r2.vS.end(),intersection.begin());
-  std::cout << "intersection: " << '\n';
+  // std::cout << "intersection: " << '\n';
   int nInter = 0;
   for(int i=0; i<intersection.size(); i++)
   {
-    cout<<intersection[i] <<"  ";
+    // cout<<intersection[i] <<"  ";
     if (intersection[i]!="") {
       nInter++;
     }
 
   }
-  std::cout  << '\n';
-  cout<<nInter<<endl;
-  return 0;
+  // std::cout  << '\n';
+  // cout<<nInter<<endl;
+  int nReun = vS.size()+r2.vS.size() - nInter;
+  // std::cout <<"workerPotential"<< nInter*nReun << '\n';
+  return nInter*nReun;
 }
