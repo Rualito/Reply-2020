@@ -37,7 +37,7 @@ vector<string> ReadFile::ReadFile(string name)
   for( int i = 0; i < n && getline(myfile,line);i++)
   {;}
 
-  While(getline(myfile,line))
+  while(getline(myfile,line))
   {
     filelines.push_back(line);
   }
