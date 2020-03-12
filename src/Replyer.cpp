@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Replyer::Replyer(bool isM, string line)
+Replyer::Replyer(bool isMx, string line)
 {
   istringstream rLine(line);
   // cout << "uma linha " << line << endl;
@@ -10,6 +10,7 @@ Replyer::Replyer(bool isM, string line)
   rLine>>C;
   rLine>>B;
   int nS;
+  isM=isMx;
   if(!isM)
   {
     rLine>>nS;
@@ -22,6 +23,7 @@ Replyer::Replyer(bool isM, string line)
 
     }
   }
+
 }
 
 
@@ -81,7 +83,6 @@ void Replyer::Print()
     cout << endl;
   }
 }
-
 vector<vector<int>> MatrixOffice(string name)
 {
   ifstream myfile;
@@ -119,4 +120,23 @@ vector<vector<int>> MatrixOffice(string name)
   }
   myfile.close();
   return mOffice;
+}
+
+double Replyer::totalPotential(const Replyer& r2)
+{
+  double potential = 0;
+  if(C == r2.C)
+  {
+    potential += B*r2.B;
+  }
+  if((!isM) && (!r2.isM))
+  {
+    potential += workerPotential(r2);
+  }
+  return potential;
+}
+
+double Replyer::workerPotential(const Replyer& r2)
+{
+  return 0;
 }

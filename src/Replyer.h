@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ class Replyer{
     vector<string> vS;
     void Print();
     static vector<string> ReadFile(string name);
+    double totalPotential (const Replyer& r2);
+    double workerPotential (const Replyer& r2);
 };
 
 vector<vector<int>> MatrixOffice(string name);
