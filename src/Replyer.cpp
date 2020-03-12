@@ -18,7 +18,7 @@ Replyer::Replyer(bool isM, string line)
 }
 
 
-vector<string> ReadFile::ReadFile(string name)
+static vector<string> ReadFile::ReadFile(string name)
 {
   ifstream myfile;
   // int count = 0;

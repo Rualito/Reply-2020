@@ -10,7 +10,7 @@ public:
   string C;
   int B;
   vector<string> vS;
-
-
+  static vector<string> ReadFile::ReadFile(string name);
+  
 };
 #endif
