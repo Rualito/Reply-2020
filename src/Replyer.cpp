@@ -1,7 +1,7 @@
 #include "Replyer.cpp"
 #include <sstream>
 
-Replyer::Replyer(string line)
+Replyer::Replyer(bool isM, string line)
 {
   isstream rLine(line);
   rLine>>C;
